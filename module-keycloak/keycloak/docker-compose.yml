@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres_server
+    image: postgres:16.1
+    volumes:
+      - ./.docker/postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: Postgres2024!
+      POSTGRES_DB: keycloak
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - fullcycle
+  
+  keycloak:
+    container_name: keycloak_server
+    image: quay.io/keycloak/keycloak:23.0.5
+    command: start-dev
+    ports:
+      - 8080:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: Postgres2024!
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - fullcycle
+
+networks:
+  fullcycle:
+    external: true
+  

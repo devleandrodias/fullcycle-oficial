@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+
+kind: RoleBinding
+
+metadata:
+  name: server-read-binding
+
+subjects:
+  - kind: ServiceAccount
+    name: server-read
+    namespace: default
+
+roleRef:
+  - kind: Role
+    name: server-read
+    apiGroup: rbac.authorization.k8s.io

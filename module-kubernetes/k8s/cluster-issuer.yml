@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+
+kind: ClusterIssuer
+
+metadata:
+  name: letsencrypt
+  namespace: cert-manager
+
+spec:
+  acme:
+    email: admin@fullcycle.com.br
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-tls
+    solvers:
+      - http01:
+          ingress:
+            class: nginx

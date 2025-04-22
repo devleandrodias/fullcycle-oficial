@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+
+kind: Kustomization
+
+resources:
+- deployment.yml
+- service.yml
+
+images:
+- name: goserver
+  newName: devleandrodias/gitops-fc
+  newTag: c0862457ef61b6d15ee145122148b58d20ebf1e0

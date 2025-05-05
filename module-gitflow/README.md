@@ -42,3 +42,21 @@ add on .bashrc this config export GPG_TTY=$(tty)
 git config --global commit.gpgsign true
 
 git config --global tag.gpgsign true
+
+git log --show-signature -1
+
+## Boas práticas para repositórios
+
+Deixar bancho develop como default
+
+- Settings > Branches > Default branchs > Develop
+
+Adicionar proteção de branchs
+
+- Exigir commits assinados
+- Exigir pull requests
+- Restringir que pode fazer pode fazer merge diretamente na branch
+
+Criar um template para as pull requests
+
+Adicionar os codeowners responsáveis do projeto

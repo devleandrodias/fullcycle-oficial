@@ -102,3 +102,9 @@ Diferentes tipos
 - refactor
 - perf
 - test
+
+## Feramentas para padronizar commits
+
+- Commitsar
+- Commitizen
+- Commitlint

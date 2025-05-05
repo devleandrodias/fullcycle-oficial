@@ -7,8 +7,8 @@ Meus estudos sobre o FullCycle 🌀
 - [ ] Docker
 - [ ] Fundamentos da arquitetura de software
 - [ ] Comunicação entre sistemas
-- [ ] SOLID com Express
-- [ ] Domain Driven Design
+- [ ] SOLID Express
+- [ ] DDD: Domain Driven Design
 - [ ] DDD: Modelagem tática e patterns
 - [ ] Event Storming na prática
 - [ ] Arquitetura Hexagonal
@@ -19,14 +19,14 @@ Meus estudos sobre o FullCycle 🌀
 - [x] RabbitMQ
 - [ ] Apache Kafka
 - [ ] Autenticação e Keycloak
-- [x] Arquitetura do projeto prático
-- [ ] Projeto prático - Python (Back-end)
-- [ ] Portal do usuário (Front-end)
-- [ ] Admin do catálogo (Front-end)
-- [ ] Encoder de vídeo com Go Lang
-- [ ] Microserviço: API do Catálogo com Python
-- [ ] Padrões e técnicas avançadas com Git e GitHub
-- [ ] Integração contínua
+- [x] Codeflix - Arquitetura do projeto
+- [ ] Codeflix - Projeto prático - Python (Back-end)
+- [ ] Codeflix - Portal do usuário (Front-end)
+- [ ] Codeflix - Admin do catálogo (Front-end)
+- [ ] Codeflix - Encoder de vídeo com Go Lang
+- [ ] Codeflix - API do Catálogo com Python
+- [x] Padrões e técnicas avançadas com Git e GitHub
+- [ ] Integração contínua (CI)
 - [x] Kubernetes
 - [ ] Service Mesh com Istio
 - [ ] API Gateway
@@ -37,12 +37,6 @@ Meus estudos sobre o FullCycle 🌀
 - [ ] Ansible
 - [x] GitOps
 - [ ] Deploy nos cloud providers
-
-# Módulos para fazer fim de semana
-
-- RabbitMQ
-- SOLID Express
-- Padrões e técnicas avançadas com Git e GitHub
 
 ## Módulos para fazer durante semana
 

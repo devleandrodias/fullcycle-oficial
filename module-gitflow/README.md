@@ -1,110 +1,162 @@
-# Padrões e Técnicas Avançadas com Git e GitHub
+# 📘 Padrões e Técnicas Avançadas com Git e GitHub
 
-- Git Pull
-- Code Review
-- Configurações para proteções de branchs
-- Pull Requests / Templates para PRs
-- Plugins do Visual Studio Code
-- SemVer (Semantical Version)
-- Convetional Commits
-- Codeowners
+Este guia reúne boas práticas, ferramentas e convenções para manter repositórios bem organizados, seguros e com histórico de commits legível.
 
-## Extensão Git Flow
+---
 
-wget -q https://raw.githubusercontent.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh && sudo bash gitflow-installer.sh install stable; rm gitflow-installer.sh
+## ✅ Fluxo de Trabalho com Git
 
-## Comandos do Git Flow
+### Git Pull e Code Review
 
+- Sempre atualize sua branch local com `git pull origin develop` antes de começar a trabalhar.
+- Participe ativamente dos **code reviews**, garantindo qualidade e aprendizado coletivo.
+
+### Proteções de Branch
+
+Configure em **Settings > Branches**:
+
+- Defina `develop` como a branch padrão.
+- Exija:
+  - Pull Requests obrigatórios.
+  - Aprovações em code review.
+  - Commits assinados (GPG).
+  - Status checks bem-sucedidos (build, lint, testes).
+  - Restrições de merge direto (somente via PR).
+
+---
+
+## 🔀 Git Flow
+
+### Instalação da Extensão
+
+```bash
+wget -q https://raw.githubusercontent.com/petervanderdoes/gitflow-avh/develop/contrib/gitflow-installer.sh && sudo bash gitflow-installer.sh install stable && rm gitflow-installer.sh
+```
+
+### Comandos Principais
+
+```bash
 git flow init
+git flow feature start [nome]
+git flow feature finish [nome]
+git flow release start [versão]
+git flow release finish [versão]
+```
 
-git feature start [name]
+---
 
-git feture finish [name]
+## 🔏 Assinatura de Commits (GPG)
 
-git release start [name]
+### Geração de Chave
 
-git release finish [name]
-
-## Assinatura de commits
-
+```bash
 gpg --full-generate-key
-
 gpg --list-secret-key --keyid-form LONG
-
 gpg --armor --export [key-id]
+```
 
-GitHub > Settings > SSH and GPG Keys
+### Configuração no GitHub
 
+- Vá em: `Settings > SSH and GPG Keys`
+- Adicione a chave pública gerada.
+
+### Configuração no Git
+
+```bash
 git config --global user.signingkey [key-id]
-
-add on .bashrc this config export GPG_TTY=$(tty)
-
+echo 'export GPG_TTY=$(tty)' >> ~/.bashrc
 git config --global commit.gpgsign true
-
 git config --global tag.gpgsign true
+```
 
+### Verificação
+
+```bash
 git log --show-signature -1
+```
 
-## Boas práticas para repositórios
+---
 
-Deixar bancho develop como default
+## 🔃 Pull Requests e Templates
 
-- Settings > Branches > Default branchs > Develop
+- Crie um **template padrão** para Pull Requests (`.github/pull_request_template.md`).
+- Ele deve conter:
+  - Objetivo da PR
+  - Cards do Jira vinculados
+  - Checklist de revisão (testes, lint, cobertura)
+  - Screenshots ou evidências se necessário
 
-Adicionar proteção de branchs
+---
 
-- Exigir code reviews
-- Exigir pull requests
-- Exigir commits assinados
-- Exigir que todos os status check estejam OK antes de fazer merge (testes, sonar, build etc)
-- Restringir que pode fazer pode fazer merge diretamente na branch
+## 👥 Codeowners
 
-Criar um template para as pull requests
+- Use o arquivo `.github/CODEOWNERS` para definir responsáveis por revisões.
 
-Adicionar os codeowners responsáveis do projeto
+```plaintext
+# Exemplo
+/src/frontend/ @frontend-team
+/src/backend/  @backend-team
+```
 
-## Semantical Versioning
+---
 
-- Major (Api pública disponível)
-- Minor (Adicionado funcionalidades, mas compatível com a API)
-- Patch (Bugs, ajustes)
+## 📌 Versionamento Semântico (SemVer)
 
-Ex: v1.2.7
+Formato: `v[MAJOR].[MINOR].[PATCH]`
 
-Major 0 - API Instavel, pode mudar a qualquer momento
+| Tipo  | Descrição                                 |
+| ----- | ----------------------------------------- |
+| MAJOR | Mudanças incompatíveis (BREAKING CHANGES) |
+| MINOR | Novas funcionalidades (compatíveis)       |
+| PATCH | Correções de bugs ou melhorias pequenas   |
 
-v1.0.0-alpha
-v1.0.0-beta
+Exemplos:
 
-## Conventional Commits
+- `v1.0.0-alpha` (prévia instável)
+- `v2.1.3` (release estável)
 
-Uma especificação para dar siguinificado legível as mensagens de commit para humanos e máquinas
+---
 
-Sempre escreva de forma imperativa (Corrido, ajustado, adicionado)
+## 🧠 Conventional Commits
 
-<tipo>[escopo opcional]: descrição
+> Convenção de mensagens de commit legíveis por humanos e ferramentas de automação.
 
-[corpo]
+### Estrutura:
 
-[rodapé]
+```bash
+<tipo>[escopo opcional]: descrição curta
 
-Diferentes tipos
+[corpo opcional]
 
-- refactor!: Remove suporte para Node 18 (BREAKING CHANGE)
+[rodapé opcional, ex: BREAKING CHANGE ou referência a issue]
+```
 
-- fix
-- feat
-- chore
-- build
-- ci
-- docs
-- style
-- refactor
-- perf
-- test
+### Exemplos:
 
-## Feramentas para padronizar commits
+```bash
+feat(auth): adiciona fluxo de login via Google
+fix(order): corrige erro ao calcular frete
+refactor!: remove suporte ao Node 18
+```
 
-- Commitsar
-- Commitizen
-- Commitlint
+### Tipos Comuns:
+
+- `feat`: Nova funcionalidade
+- `fix`: Correção de bug
+- `docs`: Mudança em documentação
+- `style`: Estilo (formatação, semântico)
+- `refactor`: Refatoração de código
+- `perf`: Melhoria de performance
+- `test`: Testes
+- `build`: Configs de build
+- `ci`: Integração contínua
+- `chore`: Outras tarefas (ex: atualização de deps)
+
+---
+
+## 🛠️ Ferramentas para Padronização de Commits
+
+- [`Commitizen`](https://github.com/commitizen/cz-cli): CLI interativo para commits convencionais.
+- [`Commitlint`](https://github.com/conventional-changelog/commitlint): Linter de mensagens de commit.
+- [`Husky`](https://github.com/typicode/husky): Hooks para rodar lint, testes, etc., antes de commit/push.
+- [`Commitsar`](https://github.com/aevea/commitsar): Verifica se commits seguem Conventional Commits.
